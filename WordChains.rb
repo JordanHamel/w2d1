@@ -18,9 +18,9 @@ class WordChain
 
     while word = queue.shift
       break if word.value == @end_word
-      children = find_children(word.value)
+      children = find_children(word)
       filter_dictionary(children)
-      queue << children
+      queue += children
     end
 
     word.value == @end_word ? print_path(word) : puts("No path found.")
@@ -33,10 +33,10 @@ class WordChain
 
   def find_children(word)
     children = []
-    dictionary.each do |child|
+    @dictionary.each do |child|
       matches = 0
       child.length.times do |index|
-        matches += 1 if child[index] == word[index]
+        matches += 1 if child[index] == word.value[index]
       end
       children << WordNode.new(child, word) if matches == (child.length - 1)
     end
@@ -47,6 +47,7 @@ class WordChain
     dictionary = File.readlines('dictionary.txt').map(&:chomp)
     dictionary = dictionary.select { |word| word.length == @start_word.length }
     dictionary.delete(@start_word)
+    dictionary
   end
 
   def filter_dictionary(words)
@@ -54,4 +55,5 @@ class WordChain
   end
 end
 
-WordChain.new(*ARGV)
+chain = WordChain.new(*ARGV)
+chain.find_path
