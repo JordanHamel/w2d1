@@ -12,9 +12,11 @@ class Hangman
     guess_num = 0
     @past_guesses = []
 
+    #you could put both of the next two conditionals onto one line
     while guess_num <= MAX_GUESSES
       break if game_won?
       print_board
+      #it would be helpful to show the player the letters they've already guessed here
       guess = get_guess(MAX_GUESSES - guess_num)
 
       if guess.length > 1

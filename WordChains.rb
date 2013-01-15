@@ -61,6 +61,10 @@ class WordChain
     children
   end
 
+  #Yesterday, Ned was talking to us about how if you have to do something once
+  #before a loop, and then continue doing it during the loop, there might 
+  #be a way to combine them. Not sure if that applies here, but it's something
+  #to think about
   # Initial filter by word length and remove start_word
   def initial_dictionary_filter
     @dictionary.delete(@start_word)
